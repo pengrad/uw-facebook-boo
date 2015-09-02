@@ -34,7 +34,9 @@
                 android:id="@+id/text_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="фыва фыва фыва фыва фывафыва "
+                android:maxLines="3"
+                android:text="Title"
+                android:ellipsize="end"
                 android:textColor="@color/primary_text"
                 android:textSize="20sp"/>
 
@@ -42,7 +44,7 @@
                 android:id="@+id/text_comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="фыфыва фывафыва фывафыва фывафва "
+                android:text="comments"
                 android:textColor="@color/secondary_text"
                 android:textSize="16sp"/>
         </LinearLayout>
