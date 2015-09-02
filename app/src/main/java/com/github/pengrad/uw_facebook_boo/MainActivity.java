@@ -3,8 +3,10 @@ package com.github.pengrad.uw_facebook_boo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
 
         mCallbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(mCallbackManager, this);
+
     }
 
     @Override
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
 
     @Override
     public void onSuccess(LoginResult loginResult) {
-        Toast.makeText(this, loginResult.getAccessToken().toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -46,4 +49,16 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
     }
 
+    public boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
+    }
+
+    public void onGoToBoo(View view) {
+        if(!isLoggedIn()) {
+            Toast.makeText(this, "Login first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        startActivity(new Intent(this, SecondActivity.class));
+    }
 }
