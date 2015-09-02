@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -16,6 +18,7 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
 
     private static final String TAG = "SecondActivity";
     private FeedRecyclerAdapter mFeedAdapter;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
     }
 
     private void initView() {
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         mFeedAdapter = new FeedRecyclerAdapter(this);
 
@@ -43,10 +47,12 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         parameters.putString("fields", "message,picture,comments.limit(0).summary(true)");
         request.setParameters(parameters);
         request.executeAsync();
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onCompleted(GraphResponse graphResponse) {
+        mProgressBar.setVisibility(View.GONE);
         String json = graphResponse.getJSONObject().toString();
         FeedData feedData = new Gson().fromJson(json, FeedData.class);
         mFeedAdapter.addAll(feedData.data);
@@ -54,6 +60,6 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
 
     @Override
     public void onItemClick(FeedData.Post item) {
-        Toast.makeText(this, "Open second activity", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Open third activity", Toast.LENGTH_SHORT).show();
     }
 }
