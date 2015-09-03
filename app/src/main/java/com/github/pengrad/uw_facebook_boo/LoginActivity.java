@@ -3,6 +3,7 @@ package com.github.pengrad.uw_facebook_boo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -15,7 +16,9 @@ import com.facebook.login.LoginResult;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
+public class LoginActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
+
+    private static final String TAG = "LoginActivity";
 
     CallbackManager mCallbackManager;
     LoginManager mLoginManager;
@@ -29,7 +32,31 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
 
         mCallbackManager = CallbackManager.Factory.create();
         mLoginManager = LoginManager.getInstance();
+        mLoginManager.registerCallback(mCallbackManager, this);
+
+        if (isLoggedIn()) {
+            openFeedScreen();
+        }
     }
+
+    @OnClick(R.id.buttonFbLogin)
+    void connectFacebook() {
+        mLoginManager.logInWithPublishPermissions(this, null);
+    }
+
+    public boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null && !accessToken.isExpired();
+    }
+
+    public void openFeedScreen() {
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+    }
+
+    /* Facebook Login callbacks */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -38,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
 
     @Override
     public void onSuccess(LoginResult loginResult) {
-        Toast.makeText(this, "Login successfully", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onSuccess() called with: " + "loginResult = [" + loginResult + "]");
+        openFeedScreen();
     }
 
     @Override
@@ -48,24 +76,7 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
 
     @Override
     public void onError(FacebookException e) {
+        Log.d(TAG, "onError() called with: " + "e = [" + e + "]", e);
         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-    }
-
-    public boolean isLoggedIn() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null;
-    }
-
-    @OnClick(R.id.buttonFbLogin)
-    void connectFacebook() {
-        mLoginManager.logInWithPublishPermissions(this, null);
-    }
-
-    public void openBooFeed() {
-        if (!isLoggedIn()) {
-            Toast.makeText(this, "Login first", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        startActivity(new Intent(this, SecondActivity.class));
     }
 }
