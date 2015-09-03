@@ -14,7 +14,6 @@ import com.facebook.login.widget.LoginButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
 
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
         return accessToken != null;
     }
 
-    @OnClick(R.id.buttonBoo)
     public void openBooFeed() {
         if (!isLoggedIn()) {
             Toast.makeText(this, "Login first", Toast.LENGTH_SHORT).show();
