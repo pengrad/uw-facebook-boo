@@ -16,29 +16,35 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class SecondActivity extends AppCompatActivity implements GraphRequest.Callback, ItemClickListener<FeedData.Post> {
 
     private static final String TAG = "SecondActivity";
-    private FeedRecyclerAdapter mFeedAdapter;
-    private ProgressBar mProgressBar;
+
+    @Bind(R.id.progressBar) ProgressBar mProgressBar;
+    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+
+    FeedRecyclerAdapter mFeedAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        ButterKnife.bind(this);
+
         initView();
         getPosts();
     }
 
     private void initView() {
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-
         mFeedAdapter = new FeedRecyclerAdapter(this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(mFeedAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mFeedAdapter);
     }
 
     private void getPosts() {

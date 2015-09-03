@@ -11,6 +11,9 @@ import com.github.pengrad.uw_facebook_boo.recyclerview.RecyclerViewHolder;
 import com.github.pengrad.uw_facebook_boo.recyclerview.RecyclerViewListAdapter;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * stas
  * 9/2/15
@@ -29,14 +32,13 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
 
     public static class ViewHolder extends RecyclerViewHolder<FeedData.Post> {
 
-        ImageView mImageView;
-        TextView mTextTitle, mTextComments;
+        @Bind(R.id.imageView) ImageView mImageView;
+        @Bind(R.id.text_title) TextView mTextTitle;
+        @Bind(R.id.text_comments) TextView mTextComments;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.imageView);
-            mTextTitle = (TextView) itemView.findViewById(R.id.text_title);
-            mTextComments = (TextView) itemView.findViewById(R.id.text_comments);
+            ButterKnife.bind(this, itemView);
         }
 
         @Override

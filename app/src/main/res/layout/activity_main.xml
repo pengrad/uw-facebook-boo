@@ -17,7 +17,6 @@
         android:id="@+id/buttonBoo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onGoToBoo"
         android:text="Go to Boo"/>
 
 </LinearLayout>

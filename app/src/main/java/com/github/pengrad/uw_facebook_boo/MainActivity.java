@@ -3,7 +3,6 @@ package com.github.pengrad.uw_facebook_boo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -13,20 +12,25 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
 
-    private CallbackManager mCallbackManager;
+    @Bind(R.id.loginButton) LoginButton mLoginButton;
+
+    CallbackManager mCallbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        LoginButton loginButton = (LoginButton) findViewById(R.id.loginButton);
+
+        ButterKnife.bind(this);
 
         mCallbackManager = CallbackManager.Factory.create();
-        loginButton.registerCallback(mCallbackManager, this);
-
+        mLoginButton.registerCallback(mCallbackManager, this);
     }
 
     @Override
@@ -54,8 +58,9 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
         return accessToken != null;
     }
 
-    public void onGoToBoo(View view) {
-        if(!isLoggedIn()) {
+    @OnClick(R.id.buttonBoo)
+    public void openBooFeed() {
+        if (!isLoggedIn()) {
             Toast.makeText(this, "Login first", Toast.LENGTH_SHORT).show();
             return;
         }
