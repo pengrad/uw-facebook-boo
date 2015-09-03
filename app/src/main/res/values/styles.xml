@@ -9,6 +9,8 @@
 
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <!--<item name="android:background">@drawable/bg_transparent_toolbar</item>-->
     </style>
 
     <!-- Connect to Facebook -->
