@@ -12,6 +12,10 @@
         style="@style/TitleTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp"
         android:text="Title"/>
 
     <com.github.pengrad.uw_facebook_boo.SquareImageView
@@ -20,10 +24,29 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/text_comments"
-        style="@style/CommentTextStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="comments"/>
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/text_likes"
+            style="@style/CommentTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="777 likes"/>
+
+        <TextView
+            android:id="@+id/text_comments"
+            style="@style/CommentTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="comments"/>
+    </LinearLayout>
 </LinearLayout>

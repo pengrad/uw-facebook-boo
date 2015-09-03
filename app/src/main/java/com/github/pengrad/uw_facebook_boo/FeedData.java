@@ -15,12 +15,16 @@ public class FeedData {
     public static class Post {
         public String id;
         public String message;
-        public String picture;
         public String full_picture;
         private JsonObject comments;
+        private JsonObject likes;
 
         public int getCommentsCount() {
             return comments.getAsJsonObject("summary").getAsJsonPrimitive("total_count").getAsInt();
+        }
+
+        public int getLikesCount() {
+            return likes.getAsJsonObject("summary").getAsJsonPrimitive("total_count").getAsInt();
         }
 
     }

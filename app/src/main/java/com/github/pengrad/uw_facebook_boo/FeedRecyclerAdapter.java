@@ -12,6 +12,7 @@ import com.github.pengrad.uw_facebook_boo.recyclerview.RecyclerViewListAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 
 /**
@@ -34,7 +35,11 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
 
         @Bind(R.id.imageView) ImageView mImageView;
         @Bind(R.id.text_title) TextView mTextTitle;
+        @Bind(R.id.text_likes) TextView mTextLikes;
         @Bind(R.id.text_comments) TextView mTextComments;
+
+        @BindString(R.string.post_likes) String likesText;
+        @BindString(R.string.post_comments) String commentsText;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -43,8 +48,12 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
 
         @Override
         public void onBindItem(FeedData.Post item) {
+            String likes = Utils.formatNumber(item.getLikesCount());
+            String comments = Utils.formatNumber(item.getCommentsCount());
+
+            mTextLikes.setText(String.format(likesText, likes));
+            mTextComments.setText(String.format(commentsText, comments));
             mTextTitle.setText(item.message);
-            mTextComments.setText(item.getCommentsCount() + " comments");
             Picasso.with(itemView.getContext()).load(item.full_picture).into(mImageView);
         }
     }

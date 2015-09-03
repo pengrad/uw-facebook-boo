@@ -52,7 +52,7 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         GraphRequest request = GraphRequest.newGraphPathRequest(token, "/Boo/feed", this);
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "message,picture,full_picture,comments.limit(0).summary(true)");
+        parameters.putString("fields", "message,full_picture,likes.limit(0).summary(true),comments.limit(0).summary(true)");
         request.setParameters(parameters);
         request.executeAsync();
         mProgressBar.setVisibility(View.VISIBLE);
