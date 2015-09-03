@@ -48,12 +48,12 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
 
         @Override
         public void onBindItem(FeedData.Post item) {
-            String likes = Utils.formatNumber(item.getLikesCount());
-            String comments = Utils.formatNumber(item.getCommentsCount());
+            String likes = TextUtils.formatNumber(item.getLikesCount());
+            String comments = TextUtils.formatNumber(item.getCommentsCount());
 
             mTextLikes.setText(String.format(likesText, likes));
             mTextComments.setText(String.format(commentsText, comments));
-            mTextTitle.setText(item.message);
+            mTextTitle.setText(TextUtils.formatHashtags(item.message));
             Picasso.with(itemView.getContext()).load(item.full_picture).into(mImageView);
         }
     }
