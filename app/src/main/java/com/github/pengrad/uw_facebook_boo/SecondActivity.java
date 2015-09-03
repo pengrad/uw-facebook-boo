@@ -1,18 +1,25 @@
 package com.github.pengrad.uw_facebook_boo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.github.pengrad.uw_facebook_boo.recyclerview.ItemClickListener;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -25,6 +32,8 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
 
     @Bind(R.id.progressBar) ProgressBar mProgressBar;
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.anim_toolbar) Toolbar mToolbar;
+    @Bind(R.id.header) ImageView mImageHeader;
 
     FeedRecyclerAdapter mFeedAdapter;
 
@@ -40,6 +49,10 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
     }
 
     private void initView() {
+        setSupportActionBar(mToolbar);
+
+        Picasso.with(this).load(R.drawable.boo_header).fit().centerCrop().into(mImageHeader);
+
         mFeedAdapter = new FeedRecyclerAdapter(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -47,7 +60,35 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         mRecyclerView.setAdapter(mFeedAdapter);
     }
 
-    private void getPosts() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_second, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            logOut();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void logOut() {
+        LoginManager.getInstance().logOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onItemClick(FeedData.Post item) {
+        Toast.makeText(this, "Open third activity", Toast.LENGTH_SHORT).show();
+    }
+
+    public void getPosts() {
         AccessToken token = AccessToken.getCurrentAccessToken();
         GraphRequest request = GraphRequest.newGraphPathRequest(token, "/Boo/feed", this);
 
@@ -66,10 +107,5 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
             FeedData feedData = new Gson().fromJson(jsonObject.toString(), FeedData.class);
             mFeedAdapter.addAll(feedData.data);
         }
-    }
-
-    @Override
-    public void onItemClick(FeedData.Post item) {
-        Toast.makeText(this, "Open third activity", Toast.LENGTH_SHORT).show();
     }
 }

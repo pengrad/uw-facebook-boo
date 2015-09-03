@@ -7,6 +7,10 @@
         <item name="colorAccent">@color/primary</item>
     </style>
 
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
     <!-- Connect to Facebook -->
     <style name="LoginButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/login_button_background</item>
