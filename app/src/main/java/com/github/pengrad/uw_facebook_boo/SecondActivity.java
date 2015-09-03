@@ -14,6 +14,8 @@ import com.facebook.GraphResponse;
 import com.github.pengrad.uw_facebook_boo.recyclerview.ItemClickListener;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 public class SecondActivity extends AppCompatActivity implements GraphRequest.Callback, ItemClickListener<FeedData.Post> {
 
     private static final String TAG = "SecondActivity";
@@ -53,9 +55,11 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
     @Override
     public void onCompleted(GraphResponse graphResponse) {
         mProgressBar.setVisibility(View.GONE);
-        String json = graphResponse.getJSONObject().toString();
-        FeedData feedData = new Gson().fromJson(json, FeedData.class);
-        mFeedAdapter.addAll(feedData.data);
+        JSONObject jsonObject = graphResponse.getJSONObject();
+        if (jsonObject != null) {
+            FeedData feedData = new Gson().fromJson(jsonObject.toString(), FeedData.class);
+            mFeedAdapter.addAll(feedData.data);
+        }
     }
 
     @Override

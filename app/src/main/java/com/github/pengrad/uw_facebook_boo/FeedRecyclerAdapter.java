@@ -22,17 +22,17 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_post, parent, false);
-        return new VH(view);
+        return new ViewHolder(view);
     }
 
-    public static class VH extends RecyclerViewHolder<FeedData.Post> {
+    public static class ViewHolder extends RecyclerViewHolder<FeedData.Post> {
 
         ImageView mImageView;
         TextView mTextTitle, mTextComments;
 
-        public VH(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.imageView);
             mTextTitle = (TextView) itemView.findViewById(R.id.text_title);
@@ -42,7 +42,7 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
         @Override
         public void onBindItem(FeedData.Post item) {
             mTextTitle.setText(item.message);
-            mTextComments.setText("" + item.getCommentsCount());
+            mTextComments.setText(item.getCommentsCount() + "");
             Picasso.with(itemView.getContext()).load(item.picture).into(mImageView);
         }
     }
