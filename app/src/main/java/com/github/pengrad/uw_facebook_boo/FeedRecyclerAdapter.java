@@ -45,7 +45,7 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
         public void onBindItem(FeedData.Post item) {
             mTextTitle.setText(item.message);
             mTextComments.setText(item.getCommentsCount() + "");
-            Picasso.with(itemView.getContext()).load(item.picture).into(mImageView);
+            Picasso.with(itemView.getContext()).load(item.full_picture).into(mImageView);
         }
     }
 }

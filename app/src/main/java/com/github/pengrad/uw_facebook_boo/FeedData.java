@@ -16,6 +16,7 @@ public class FeedData {
         public String id;
         public String message;
         public String picture;
+        public String full_picture;
         private JsonObject comments;
 
         public int getCommentsCount() {
