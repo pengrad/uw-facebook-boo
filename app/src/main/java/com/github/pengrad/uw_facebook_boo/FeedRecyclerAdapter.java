@@ -26,7 +26,7 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_feed_post, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,7 +44,7 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
         @Override
         public void onBindItem(FeedData.Post item) {
             mTextTitle.setText(item.message);
-            mTextComments.setText(item.getCommentsCount() + "");
+            mTextComments.setText(item.getCommentsCount() + " comments");
             Picasso.with(itemView.getContext()).load(item.full_picture).into(mImageView);
         }
     }

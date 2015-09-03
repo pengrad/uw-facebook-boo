@@ -3,19 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_primary"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/text_title"
+        style="@style/TitleTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Title"
-        android:textColor="@color/primary_text"
-        android:textSize="20sp"/>
+        android:text="Title"/>
 
     <com.github.pengrad.uw_facebook_boo.SquareImageView
         android:id="@+id/imageView"
@@ -25,9 +22,8 @@
 
     <TextView
         android:id="@+id/text_comments"
+        style="@style/CommentTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="comments"
-        android:textColor="@color/secondary_text"
-        android:textSize="16sp"/>
+        android:text="comments"/>
 </LinearLayout>
