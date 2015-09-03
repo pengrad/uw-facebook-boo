@@ -9,17 +9,16 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
 
-    @Bind(R.id.loginButton) LoginButton mLoginButton;
-
     CallbackManager mCallbackManager;
+    LoginManager mLoginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
         ButterKnife.bind(this);
 
         mCallbackManager = CallbackManager.Factory.create();
-        mLoginButton.registerCallback(mCallbackManager, this);
+        mLoginManager = LoginManager.getInstance();
     }
 
     @Override
@@ -55,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements FacebookCallback<
     public boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
+    }
+
+    @OnClick(R.id.buttonFbLogin)
+    void connectFacebook() {
+        mLoginManager.logInWithPublishPermissions(this, null);
     }
 
     public void openBooFeed() {

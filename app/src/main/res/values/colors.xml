@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#3C5B97</color>
+    <color name="primary">#3b5998</color>
     <color name="primaryDark">#304878</color>
     <color name="accent">#bb0</color>
 
-    <color name="transparent_primary">#443C5B97</color>
-    <color name="transparent_black">#2222</color>
-    <color name="transparent_white">#6FFF</color>
-
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
+
+    <color name="transparent_primary">#443b5998</color>
+    <color name="transparent_black">#22222222</color>
+    <color name="transparent_white">#66ffffff</color>
+
+    <color name="white">#ffffffff</color>
+
+    <color name="button_blue">#355089</color>
+    <color name="button_light_blue">#ff4e69a2</color>
 </resources>
