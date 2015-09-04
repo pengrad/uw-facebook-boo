@@ -17,7 +17,9 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
-import com.github.pengrad.uw_facebook_boo.recyclerview.ItemClickListener;
+import com.github.pengrad.uw_facebook_boo.utils.AppBarViewBackgroundSwitch;
+import com.github.pengrad.uw_facebook_boo.utils.AppBarViewToggle;
+import com.github.pengrad.uw_facebook_boo.utils.recyclerview.ItemClickListener;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +28,7 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SecondActivity extends AppCompatActivity implements GraphRequest.Callback, ItemClickListener<FeedData.Post>, AppBarLayout.OnOffsetChangedListener, SwipeRefreshLayout.OnRefreshListener {
+public class SecondActivity extends AppCompatActivity implements GraphRequest.Callback, ItemClickListener<FeedData.Post>, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "SecondActivity";
 
@@ -45,22 +47,9 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
 
         ButterKnife.bind(this);
 
-//        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-//            @Override
-//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//                if (verticalOffset == 0 || Math.abs(verticalOffset) <= mToolbar.getHeight()) {
-//                    Log.d(TAG, "onOffsetChanged() called with: " + "appBarLayout = [" + appBarLayout + "], verticalOffset = [" + verticalOffset + "]");
-//                    mToolbar.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.bg_transparent_toolbar));
-//                } else  {
-//                    Log.d(TAG, "onOffsetChanged() called with: " + "appBarLayout = [" + appBarLayout + "], verticalOffset = [" + verticalOffset + "]");
-//                    mToolbar.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.bg_transparent));
-//                }
-//
-//            }
-//        });
-
         initView();
 
+        // first data loading with forced refreshing view
         mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -75,12 +64,16 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         Picasso.with(this).load(R.drawable.boo_header).fit().centerCrop().into(mImageHeader);
 
         mFeedAdapter = new FeedRecyclerAdapter(this);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mFeedAdapter);
 
-        mAppBarLayout.addOnOffsetChangedListener(this);
+        // add darkened top on expanded image
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarViewBackgroundSwitch(mToolbar, R.drawable.bg_transparent_toolbar, R.drawable.bg_transparent));
+
+        // disable swipe layout until app bar full expanded
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarViewToggle(mSwipeRefreshLayout));
+
         mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -97,15 +90,6 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        if (i == 0) {
-            mSwipeRefreshLayout.setEnabled(true);
-        } else {
-            mSwipeRefreshLayout.setEnabled(false);
-        }
     }
 
     public void logOut() {

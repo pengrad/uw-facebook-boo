@@ -1,4 +1,4 @@
-package com.github.pengrad.uw_facebook_boo.recyclerview;
+package com.github.pengrad.uw_facebook_boo.utils.recyclerview;
 
 /**
  * stas

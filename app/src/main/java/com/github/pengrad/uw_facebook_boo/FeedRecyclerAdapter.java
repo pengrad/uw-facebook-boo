@@ -6,9 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.pengrad.uw_facebook_boo.recyclerview.ItemClickListener;
-import com.github.pengrad.uw_facebook_boo.recyclerview.RecyclerViewHolder;
-import com.github.pengrad.uw_facebook_boo.recyclerview.RecyclerViewListAdapter;
+import com.github.pengrad.uw_facebook_boo.utils.TextUtils;
+import com.github.pengrad.uw_facebook_boo.utils.recyclerview.ItemClickListener;
+import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewHolder;
+import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewListAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
