@@ -1,4 +1,4 @@
-package com.github.pengrad.uw_facebook_boo;
+package com.github.pengrad.uw_facebook_boo.feed;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.pengrad.uw_facebook_boo.R;
 import com.github.pengrad.uw_facebook_boo.utils.TextUtils;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.ItemClickListener;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewHolder;

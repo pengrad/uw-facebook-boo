@@ -1,4 +1,4 @@
-package com.github.pengrad.uw_facebook_boo;
+package com.github.pengrad.uw_facebook_boo.feed;
 
 import com.google.gson.JsonObject;
 

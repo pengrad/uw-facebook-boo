@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference;
  */
 public class AppBarViewBackgroundSwitch implements AppBarLayout.OnOffsetChangedListener {
 
-    private static final String TAG = "AppBarSwitch";
+    public static final String TAG = "AppBarSwitch";
 
     private static final int OFFSET = 50; // dp
 

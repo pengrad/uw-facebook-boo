@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_white"
     android:fitsSystemWindows="true"
-    tools:context="com.github.pengrad.uw_facebook_boo.SecondActivity">
+    tools:context="com.github.pengrad.uw_facebook_boo.FeedActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

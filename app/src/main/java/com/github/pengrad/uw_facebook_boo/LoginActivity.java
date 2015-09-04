@@ -18,7 +18,7 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
 
-    private static final String TAG = "LoginActivity";
+    public static final String TAG = "LoginActivity";
 
     CallbackManager mCallbackManager;
     LoginManager mLoginManager;
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
 
     public void openFeedScreen() {
-        Intent intent = new Intent(this, SecondActivity.class);
+        Intent intent = new Intent(this, FeedActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
