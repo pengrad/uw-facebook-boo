@@ -3,7 +3,6 @@ package com.github.pengrad.uw_facebook_boo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -15,6 +14,8 @@ import com.facebook.login.LoginResult;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.github.pengrad.uw_facebook_boo.utils.Logger.log;
 
 public class LoginActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
 
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
 
     @Override
     public void onSuccess(LoginResult loginResult) {
-        Log.d(TAG, "onSuccess() called with: " + "loginResult = [" + loginResult + "]");
+        log(TAG, "onSuccess() called with: " + "loginResult = [" + loginResult + "]");
         openFeedScreen();
     }
 
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
 
     @Override
     public void onError(FacebookException e) {
-        Log.d(TAG, "onError() called with: " + "e = [" + e + "]", e);
+        log(TAG, "onError() called with: " + "e = [" + e + "]", e);
         Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
     }
 }

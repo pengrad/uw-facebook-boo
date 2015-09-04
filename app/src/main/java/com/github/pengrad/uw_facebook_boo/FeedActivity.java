@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -31,6 +30,8 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.github.pengrad.uw_facebook_boo.utils.Logger.log;
 
 public class FeedActivity extends AppCompatActivity implements GraphRequest.Callback, ItemClickListener<FeedData.Post>, SwipeRefreshLayout.OnRefreshListener {
 
@@ -56,7 +57,6 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
 
         // first data loading with forced refreshing view
         mSwipeRefreshLayout.post(new Runnable() {
-            @Override
             public void run() {
                 startFeedRequest();
             }
@@ -135,7 +135,7 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
     // Facebook Request callback
     @Override
     public void onCompleted(GraphResponse graphResponse) {
-        Log.d(TAG, "onCompleted() called with: " + "graphResponse = [" + graphResponse.toString() + "]");
+        log(TAG, "onCompleted() called with: " + "graphResponse = [" + graphResponse.toString() + "]");
 
         mSwipeRefreshLayout.setRefreshing(false);
 

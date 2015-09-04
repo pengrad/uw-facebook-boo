@@ -29,7 +29,7 @@ public class AppBarViewBackgroundSwitch implements AppBarLayout.OnOffsetChangedL
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         View view = mViewRef.get();
         if (view != null) {
-//            Log.d(TAG, "onOffsetChanged() called with: " + "verticalOffset = [" + verticalOffset + "]" + " toolbarHeight = " + view.getHeight());
+//            Logger.log(TAG, "onOffsetChanged() called with: " + "verticalOffset = [" + verticalOffset + "]" + " toolbarHeight = " + view.getHeight());
             if (Math.abs(verticalOffset) - OFFSET <= view.getHeight()) { // app bar enough opened
                 view.setBackgroundResource(mExpandedRes);
             } else {
