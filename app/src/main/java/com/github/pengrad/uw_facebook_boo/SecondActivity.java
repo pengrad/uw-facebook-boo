@@ -3,15 +3,14 @@ package com.github.pengrad.uw_facebook_boo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -27,11 +26,11 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SecondActivity extends AppCompatActivity implements GraphRequest.Callback, ItemClickListener<FeedData.Post> {
+public class SecondActivity extends AppCompatActivity implements GraphRequest.Callback, ItemClickListener<FeedData.Post>, AppBarLayout.OnOffsetChangedListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "SecondActivity";
 
-    @Bind(R.id.progressBar) ProgressBar mProgressBar;
+    @Bind(R.id.swipeRefresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.header) ImageView mImageHeader;
@@ -61,7 +60,13 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
 //        });
 
         initView();
-        getPosts();
+
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                getPosts();
+            }
+        });
     }
 
     private void initView() {
@@ -74,6 +79,9 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mFeedAdapter);
+
+        mAppBarLayout.addOnOffsetChangedListener(this);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -91,6 +99,15 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        if (i == 0) {
+            mSwipeRefreshLayout.setEnabled(true);
+        } else {
+            mSwipeRefreshLayout.setEnabled(false);
+        }
+    }
+
     public void logOut() {
         LoginManager.getInstance().logOut();
         Intent intent = new Intent(this, LoginActivity.class);
@@ -104,7 +121,13 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         Toast.makeText(this, "Open third activity", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onRefresh() {
+        getPosts();
+    }
+
     public void getPosts() {
+        mSwipeRefreshLayout.setRefreshing(true);
         AccessToken token = AccessToken.getCurrentAccessToken();
         GraphRequest request = GraphRequest.newGraphPathRequest(token, "/Boo/feed", this);
 
@@ -112,12 +135,11 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         parameters.putString("fields", "message,full_picture,likes.limit(0).summary(true),comments.limit(0).summary(true)");
         request.setParameters(parameters);
         request.executeAsync();
-        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onCompleted(GraphResponse graphResponse) {
-        mProgressBar.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
         JSONObject jsonObject = graphResponse.getJSONObject();
         if (jsonObject != null) {
             FeedData feedData = new Gson().fromJson(jsonObject.toString(), FeedData.class);
