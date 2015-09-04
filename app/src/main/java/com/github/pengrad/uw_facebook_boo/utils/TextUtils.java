@@ -21,6 +21,10 @@ public class TextUtils {
     }
 
     public static SpannableString formatHashtags(String src) {
+        if(android.text.TextUtils.isEmpty(src)) {
+            return new SpannableString("");
+        }
+
         SpannableString string = new SpannableString(src);
 
         int start = -1;

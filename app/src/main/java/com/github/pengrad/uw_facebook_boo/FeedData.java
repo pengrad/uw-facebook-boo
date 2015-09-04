@@ -27,6 +27,14 @@ public class FeedData {
             return likes.getAsJsonObject("summary").getAsJsonPrimitive("total_count").getAsInt();
         }
 
+        @Override
+        public String toString() {
+            return "Post{" +
+                    "full_picture='" + full_picture + '\'' +
+                    ", message='" + message + '\'' +
+                    ", id='" + id + '\'' +
+                    '}';
+        }
     }
 
 }

@@ -8,9 +8,6 @@ import java.lang.ref.WeakReference;
 /**
  * stas
  * 9/4/15
- */
-
-/**
  * Switch view enabled/disabled for expanded/collapsed app bar
  */
 public class AppBarViewToggle implements AppBarLayout.OnOffsetChangedListener {

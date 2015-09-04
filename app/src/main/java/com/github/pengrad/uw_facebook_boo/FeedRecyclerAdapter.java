@@ -55,6 +55,8 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
             mTextLikes.setText(String.format(likesText, likes));
             mTextComments.setText(String.format(commentsText, comments));
             mTextTitle.setText(TextUtils.formatHashtags(item.message));
+
+            // picasso will cache image on disk
             Picasso.with(itemView.getContext()).load(item.full_picture).into(mImageView);
         }
     }
