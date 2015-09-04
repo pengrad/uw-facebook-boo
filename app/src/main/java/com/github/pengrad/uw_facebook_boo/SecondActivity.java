@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
@@ -24,8 +25,6 @@ import com.github.pengrad.uw_facebook_boo.utils.recyclerview.EndlessRecyclerOnSc
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.ItemClickListener;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -141,15 +140,19 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
 
         mSwipeRefreshLayout.setRefreshing(false);
 
-        JSONObject jsonObject = graphResponse.getJSONObject();
-        if (jsonObject != null) {
-            FeedData feedData = new Gson().fromJson(jsonObject.toString(), FeedData.class);
+        if (graphResponse.getError() != null) {
+            if (graphResponse.getError().getCategory() == FacebookRequestError.Category.LOGIN_RECOVERABLE) {
+                logOut();
+            }
+        } else {
+            FeedData feedData = new Gson().fromJson(graphResponse.getRawResponse(), FeedData.class);
             mFeedAdapter.addAll(feedData.data);
+
+            prepareNextPageRequest(graphResponse);
         }
-        prepareNextRequest(graphResponse);
     }
 
-    void prepareNextRequest(GraphResponse graphResponse) {
+    void prepareNextPageRequest(GraphResponse graphResponse) {
         mNextRequest = graphResponse.getRequestForPagedResults(GraphResponse.PagingDirection.NEXT);
         mNextRequest.setCallback(this);
     }
