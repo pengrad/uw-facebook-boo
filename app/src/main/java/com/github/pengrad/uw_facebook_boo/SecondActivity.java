@@ -2,6 +2,7 @@ package com.github.pengrad.uw_facebook_boo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,8 +33,9 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
 
     @Bind(R.id.progressBar) ProgressBar mProgressBar;
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
-    @Bind(R.id.anim_toolbar) Toolbar mToolbar;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.header) ImageView mImageHeader;
+    @Bind(R.id.appbar) AppBarLayout mAppBarLayout;
 
     FeedRecyclerAdapter mFeedAdapter;
 
@@ -43,6 +45,20 @@ public class SecondActivity extends AppCompatActivity implements GraphRequest.Ca
         setContentView(R.layout.activity_second);
 
         ButterKnife.bind(this);
+
+//        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+//            @Override
+//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+//                if (verticalOffset == 0 || Math.abs(verticalOffset) <= mToolbar.getHeight()) {
+//                    Log.d(TAG, "onOffsetChanged() called with: " + "appBarLayout = [" + appBarLayout + "], verticalOffset = [" + verticalOffset + "]");
+//                    mToolbar.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.bg_transparent_toolbar));
+//                } else  {
+//                    Log.d(TAG, "onOffsetChanged() called with: " + "appBarLayout = [" + appBarLayout + "], verticalOffset = [" + verticalOffset + "]");
+//                    mToolbar.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.bg_transparent));
+//                }
+//
+//            }
+//        });
 
         initView();
         getPosts();
