@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 public class DragDownLayout extends RelativeLayout {
     private static final String TAG = "DragLayout";
 
-    private View mCapturedView;
+    private int mCapturedViewId;
     private DragListener mDragListener;
 
     private ViewDragHelper mDragHelper;
@@ -23,8 +23,8 @@ public class DragDownLayout extends RelativeLayout {
         super(context, attrs);
     }
 
-    public void init(View capturedView, DragListener dragListener) {
-        mCapturedView = capturedView;
+    public void init(int capturedViewId, DragListener dragListener) {
+        mCapturedViewId = capturedViewId;
         mDragListener = dragListener;
     }
 
@@ -89,7 +89,7 @@ public class DragDownLayout extends RelativeLayout {
 
         @Override
         public boolean tryCaptureView(View view, int i) {
-            return (view.getId() == mCapturedView.getId());
+            return (view.getId() == mCapturedViewId);
         }
 
         @Override

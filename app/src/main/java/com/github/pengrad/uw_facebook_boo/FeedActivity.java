@@ -16,12 +16,12 @@ import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
+import com.github.pengrad.uw_facebook_boo.feed.AppBarViewBackgroundSwitch;
+import com.github.pengrad.uw_facebook_boo.feed.AppBarViewToggle;
 import com.github.pengrad.uw_facebook_boo.feed.FacebookFeedRequest;
 import com.github.pengrad.uw_facebook_boo.feed.FeedData;
 import com.github.pengrad.uw_facebook_boo.feed.FeedRecyclerAdapter;
 import com.github.pengrad.uw_facebook_boo.feed.ZoomAnimation;
-import com.github.pengrad.uw_facebook_boo.feed.AppBarViewBackgroundSwitch;
-import com.github.pengrad.uw_facebook_boo.feed.AppBarViewToggle;
 import com.github.pengrad.uw_facebook_boo.utils.StyleMaker;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.EndlessRecyclerOnScrollListener;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.ItemClickListener;
@@ -122,7 +122,7 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
     public void onItemClick(FeedData.Post item) {
         mZoomAnimation.enable();
 
-        startActivity(new Intent(this, CommentsActivity.class));
+        CommentsActivity.start(this, item.id);
         overridePendingTransition(R.anim.slide_up, 0);
     }
 
@@ -171,6 +171,6 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
 
     void prepareNextPageRequest(GraphResponse graphResponse) {
         mNextPageRequest = graphResponse.getRequestForPagedResults(GraphResponse.PagingDirection.NEXT);
-        mNextPageRequest.setCallback(this);
+        if (mNextPageRequest != null) mNextPageRequest.setCallback(this);
     }
 }

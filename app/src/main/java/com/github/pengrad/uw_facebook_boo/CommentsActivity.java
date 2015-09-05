@@ -1,30 +1,47 @@
 package com.github.pengrad.uw_facebook_boo;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.facebook.FacebookRequestError;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.github.pengrad.uw_facebook_boo.comments.CommentsData;
+import com.github.pengrad.uw_facebook_boo.comments.CommentsRecyclerAdapter;
 import com.github.pengrad.uw_facebook_boo.comments.DragDownLayout;
-import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewHolder;
-import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewListAdapter;
+import com.github.pengrad.uw_facebook_boo.comments.FacebookCommentsRequest;
+import com.github.pengrad.uw_facebook_boo.utils.recyclerview.EndlessRecyclerOnScrollListener;
+import com.google.gson.Gson;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static com.github.pengrad.uw_facebook_boo.utils.Logger.log;
 
-public class CommentsActivity extends AppCompatActivity implements DragDownLayout.DragListener {
+
+public class CommentsActivity extends AppCompatActivity implements DragDownLayout.DragListener, GraphRequest.Callback {
+
+    private static final String TAG = "CommentsActivity";
+    private static final String POST_ID = "postid";
+
+    public static void start(Context context, String postId) {
+        Intent intent = new Intent(context, CommentsActivity.class);
+        intent.putExtra(POST_ID, postId);
+        context.startActivity(intent);
+    }
 
     @Bind(R.id.dragLayout) DragDownLayout mDragDownLayout;
-    @Bind(R.id.cardview) CardView mCardView;
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+
+    CommentsRecyclerAdapter mCommentsAdapter;
+    GraphRequest mNextPageRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +50,51 @@ public class CommentsActivity extends AppCompatActivity implements DragDownLayou
 
         ButterKnife.bind(this);
 
-        String[] items = new String[20];
-        for (int i = 0; i < items.length; i++) {
-            items[i] = "Item " + (i + 1);
-        }
+        initView();
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerViewListAdapter<String> adapter = new RecyclerViewListAdapter<String>(null) {
-            @Override
-            public RecyclerViewHolder<String> onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+        String postId = getIntent().getStringExtra(POST_ID);
+        FacebookCommentsRequest.createRequest(postId, this).executeAsync();
 
-                return new RecyclerViewHolder<String>(view) {
-                    @Override
-                    public void onBindItem(String item) {
-                        TextView textView = (TextView) itemView.findViewById(android.R.id.text1);
-                        textView.setText(item);
-                    }
-                };
+        Log.d(TAG, "onCreate() postId: " + postId);
+    }
+
+    private void initView() {
+        mDragDownLayout.init(R.id.cardview, this);
+
+        mCommentsAdapter = new CommentsRecyclerAdapter(null);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mCommentsAdapter);
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            public void onLoadMore(int current_page) {
+                if (mNextPageRequest != null) {
+                    mNextPageRequest.executeAsync();
+                }
             }
-        };
-        adapter.addAll(items);
-        mRecyclerView.setAdapter(adapter);
-        mDragDownLayout.init(mCardView, this);
+        });
+    }
+
+    // Facebook Request callback
+    @Override
+    public void onCompleted(GraphResponse graphResponse) {
+        log(TAG, "onCompleted() called with: " + "graphResponse = [" + graphResponse.toString() + "]");
+
+        if (graphResponse.getError() != null) {
+            if (graphResponse.getError().getCategory() == FacebookRequestError.Category.LOGIN_RECOVERABLE) {
+                finish();
+            }
+        } else {
+            CommentsData commentsData = new Gson().fromJson(graphResponse.getRawResponse(), CommentsData.class);
+            mCommentsAdapter.addAll(commentsData.data);
+            prepareNextPageRequest(graphResponse);
+        }
+    }
+
+    void prepareNextPageRequest(GraphResponse graphResponse) {
+        mNextPageRequest = graphResponse.getRequestForPagedResults(GraphResponse.PagingDirection.NEXT);
+        if (mNextPageRequest != null) mNextPageRequest.setCallback(this);
     }
 
     // Should drag layout process this event
