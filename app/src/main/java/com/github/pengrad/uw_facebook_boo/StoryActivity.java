@@ -65,10 +65,17 @@ public class StoryActivity extends AppCompatActivity implements DragDownLayout.D
         return !ViewCompat.canScrollVertically(mRecyclerView, -1);
     }
 
-    // Callback - view dragged to the end
+    // Callback - view dragged to the end, finish without animation
     @Override
     public void onDragEnd() {
-        finish();
+        super.finish();
         overridePendingTransition(0, 0);
+    }
+
+    // back pressing finish, animate slide down
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, R.anim.slide_down);
     }
 }

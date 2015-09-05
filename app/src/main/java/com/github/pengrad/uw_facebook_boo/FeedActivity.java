@@ -19,6 +19,7 @@ import com.facebook.login.LoginManager;
 import com.github.pengrad.uw_facebook_boo.feed.FacebookFeedRequest;
 import com.github.pengrad.uw_facebook_boo.feed.FeedData;
 import com.github.pengrad.uw_facebook_boo.feed.FeedRecyclerAdapter;
+import com.github.pengrad.uw_facebook_boo.feed.ZoomAnimation;
 import com.github.pengrad.uw_facebook_boo.utils.AppBarViewBackgroundSwitch;
 import com.github.pengrad.uw_facebook_boo.utils.AppBarViewToggle;
 import com.github.pengrad.uw_facebook_boo.utils.StyleMaker;
@@ -44,15 +45,19 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
 
     FeedRecyclerAdapter mFeedAdapter;
     GraphRequest mNextPageRequest;
+    private ZoomAnimation mZoomAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
         ButterKnife.bind(this);
 
         initView();
+
+        mZoomAnimation = new ZoomAnimation();
 
         // first data loading with forced refreshing view
         mSwipeRefreshLayout.post(new Runnable() {
@@ -108,17 +113,29 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
 
     public void logOut() {
         LoginManager.getInstance().logOut();
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
+        overridePendingTransition(0, 0);
     }
 
     @Override
     public void onItemClick(FeedData.Post item) {
-        Intent intent = new Intent(this, StoryActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+        mZoomAnimation.enable();
+
+        startActivity(new Intent(this, StoryActivity.class));
+        overridePendingTransition(R.anim.slide_up, 0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mZoomAnimation.zoomOut(findViewById(android.R.id.content));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mZoomAnimation.zoomIn(findViewById(android.R.id.content));
     }
 
     // Swipe Refresh Layout listener

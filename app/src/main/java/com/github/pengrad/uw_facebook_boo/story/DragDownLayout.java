@@ -104,6 +104,7 @@ public class DragDownLayout extends RelativeLayout {
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
+            Log.d(TAG, "clampViewPositionVertical() called with: " + "top = [" + top + "], dy = [" + dy + "]");
             final int topBound = getPaddingTop();
             final int bottomBound = mVerticalRange;
             return Math.min(Math.max(top, topBound), bottomBound);
