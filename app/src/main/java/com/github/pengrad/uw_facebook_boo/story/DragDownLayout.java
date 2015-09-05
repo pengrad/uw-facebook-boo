@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 
-public class DragLayout extends RelativeLayout {
+public class DragDownLayout extends RelativeLayout {
     private static final String TAG = "DragLayout";
 
     private View mCapturedView;
@@ -20,7 +20,7 @@ public class DragLayout extends RelativeLayout {
     private int mDraggingBorder;
     private int mVerticalRange;
 
-    public DragLayout(Context context, AttributeSet attrs) {
+    public DragDownLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -40,6 +40,12 @@ public class DragLayout extends RelativeLayout {
         mVerticalRange = (int) (h * 0.5);
         Log.d(TAG, "onSizeChanged() called with: " + "w = [" + w + "], h = [" + h + "], oldw = [" + oldw + "], oldh = [" + oldh + "]" + mVerticalRange);
         super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        Log.d(TAG, "onLayout() called with: " + "changed = [" + changed + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
     }
 
     @Override
@@ -70,6 +76,7 @@ public class DragLayout extends RelativeLayout {
 
     public interface DragListener {
         boolean shouldIntercept(MotionEvent event);
+
         void onDragEnd();
     }
 
@@ -81,6 +88,8 @@ public class DragLayout extends RelativeLayout {
             if (top >= mVerticalRange) {
                 mDragListener.onDragEnd();
             }
+
+            Log.d(TAG, "onViewPositionChanged() returned: " + getPaddingTop());
         }
 
         @Override
@@ -102,10 +111,10 @@ public class DragLayout extends RelativeLayout {
 
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
-            final int settleDestY = mDraggingBorder == mVerticalRange ? mVerticalRange : 0;
+            final int top = mDraggingBorder == mVerticalRange ? mVerticalRange : getPaddingTop();
 
-            if (mDragHelper.settleCapturedViewAt(0, settleDestY)) {
-                ViewCompat.postInvalidateOnAnimation(DragLayout.this);
+            if (mDragHelper.settleCapturedViewAt(0, top)) {
+                ViewCompat.postInvalidateOnAnimation(DragDownLayout.this);
             }
         }
     }
