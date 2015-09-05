@@ -20,8 +20,8 @@ import com.github.pengrad.uw_facebook_boo.feed.FacebookFeedRequest;
 import com.github.pengrad.uw_facebook_boo.feed.FeedData;
 import com.github.pengrad.uw_facebook_boo.feed.FeedRecyclerAdapter;
 import com.github.pengrad.uw_facebook_boo.feed.ZoomAnimation;
-import com.github.pengrad.uw_facebook_boo.utils.AppBarViewBackgroundSwitch;
-import com.github.pengrad.uw_facebook_boo.utils.AppBarViewToggle;
+import com.github.pengrad.uw_facebook_boo.feed.AppBarViewBackgroundSwitch;
+import com.github.pengrad.uw_facebook_boo.feed.AppBarViewToggle;
 import com.github.pengrad.uw_facebook_boo.utils.StyleMaker;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.EndlessRecyclerOnScrollListener;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.ItemClickListener;
@@ -122,7 +122,7 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
     public void onItemClick(FeedData.Post item) {
         mZoomAnimation.enable();
 
-        startActivity(new Intent(this, StoryActivity.class));
+        startActivity(new Intent(this, CommentsActivity.class));
         overridePendingTransition(R.anim.slide_up, 0);
     }
 

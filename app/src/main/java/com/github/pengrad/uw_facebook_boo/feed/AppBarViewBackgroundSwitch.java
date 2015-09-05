@@ -1,4 +1,4 @@
-package com.github.pengrad.uw_facebook_boo.utils;
+package com.github.pengrad.uw_facebook_boo.feed;
 
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.AppBarLayout;

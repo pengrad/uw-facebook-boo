@@ -18,7 +18,7 @@
         android:paddingTop="12dp"
         android:text="Title"/>
 
-    <com.github.pengrad.uw_facebook_boo.utils.SquareImageView
+    <com.github.pengrad.uw_facebook_boo.feed.SquareImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

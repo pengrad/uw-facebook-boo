@@ -1,4 +1,4 @@
-<com.github.pengrad.uw_facebook_boo.story.DragDownLayout
+<com.github.pengrad.uw_facebook_boo.comments.DragDownLayout
     android:id="@+id/dragLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,5 +20,5 @@
             android:layout_height="match_parent"/>
 
     </android.support.v7.widget.CardView>
-</com.github.pengrad.uw_facebook_boo.story.DragDownLayout>
+</com.github.pengrad.uw_facebook_boo.comments.DragDownLayout>
 

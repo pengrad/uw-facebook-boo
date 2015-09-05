@@ -8,7 +8,7 @@ import com.facebook.FacebookSdk;
  * stas
  * 9/2/15
  */
-public class MyApp extends Application {
+public class App extends Application {
 
     @Override
     public void onCreate() {

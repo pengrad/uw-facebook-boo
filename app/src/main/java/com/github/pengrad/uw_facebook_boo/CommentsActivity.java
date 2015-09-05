@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.pengrad.uw_facebook_boo.story.DragDownLayout;
+import com.github.pengrad.uw_facebook_boo.comments.DragDownLayout;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewHolder;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewListAdapter;
 
@@ -20,7 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class StoryActivity extends AppCompatActivity implements DragDownLayout.DragListener {
+public class CommentsActivity extends AppCompatActivity implements DragDownLayout.DragListener {
 
     @Bind(R.id.dragLayout) DragDownLayout mDragDownLayout;
     @Bind(R.id.cardview) CardView mCardView;
