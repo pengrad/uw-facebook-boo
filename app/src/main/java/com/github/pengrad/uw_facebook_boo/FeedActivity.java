@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
@@ -49,7 +48,7 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_feed);
 
         ButterKnife.bind(this);
 
@@ -117,7 +116,9 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
 
     @Override
     public void onItemClick(FeedData.Post item) {
-        Toast.makeText(this, "Open third activity", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, StoryActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
     // Swipe Refresh Layout listener
