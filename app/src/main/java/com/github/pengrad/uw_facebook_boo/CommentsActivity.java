@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
@@ -39,6 +41,7 @@ public class CommentsActivity extends AppCompatActivity implements DragDownLayou
 
     @Bind(R.id.dragLayout) DragDownLayout mDragDownLayout;
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.progressbar) ProgressBar mProgressBar;
 
     CommentsRecyclerAdapter mCommentsAdapter;
     GraphRequest mNextPageRequest;
@@ -80,6 +83,7 @@ public class CommentsActivity extends AppCompatActivity implements DragDownLayou
     @Override
     public void onCompleted(GraphResponse graphResponse) {
         log(TAG, "onCompleted() called with: " + "graphResponse = [" + graphResponse.toString() + "]");
+        mProgressBar.setVisibility(View.GONE);
 
         if (graphResponse.getError() != null) {
             if (graphResponse.getError().getCategory() == FacebookRequestError.Category.LOGIN_RECOVERABLE) {
