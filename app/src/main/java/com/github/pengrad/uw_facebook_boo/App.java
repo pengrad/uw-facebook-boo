@@ -3,6 +3,7 @@ package com.github.pengrad.uw_facebook_boo;
 import android.app.Application;
 
 import com.facebook.FacebookSdk;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * stas
@@ -15,5 +16,6 @@ public class App extends Application {
         super.onCreate();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
+        LeakCanary.install(this);
     }
 }
