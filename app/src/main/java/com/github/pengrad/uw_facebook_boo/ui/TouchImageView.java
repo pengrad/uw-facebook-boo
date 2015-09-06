@@ -1,4 +1,4 @@
-package com.github.pengrad.uw_facebook_boo.utils;
+package com.github.pengrad.uw_facebook_boo.ui;
 
 /*
  * TouchImageView.java

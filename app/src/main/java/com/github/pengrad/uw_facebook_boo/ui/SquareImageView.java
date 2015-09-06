@@ -1,4 +1,4 @@
-package com.github.pengrad.uw_facebook_boo.feed;
+package com.github.pengrad.uw_facebook_boo.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

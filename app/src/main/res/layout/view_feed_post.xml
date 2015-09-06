@@ -32,7 +32,7 @@
             android:text="Title"/>
     </LinearLayout>
 
-    <com.github.pengrad.uw_facebook_boo.feed.SquareImageView
+    <com.github.pengrad.uw_facebook_boo.ui.SquareImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.github.pengrad.uw_facebook_boo.comments;
+package com.github.pengrad.uw_facebook_boo.ui;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

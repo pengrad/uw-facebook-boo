@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.pengrad.uw_facebook_boo.feed.FeedData;
-import com.github.pengrad.uw_facebook_boo.utils.TouchImageView;
+import com.github.pengrad.uw_facebook_boo.ui.TouchImageView;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;

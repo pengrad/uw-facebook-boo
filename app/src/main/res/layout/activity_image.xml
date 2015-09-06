@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.github.pengrad.uw_facebook_boo.utils.TouchImageView
+    <com.github.pengrad.uw_facebook_boo.ui.TouchImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

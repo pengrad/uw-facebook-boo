@@ -17,7 +17,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.github.pengrad.uw_facebook_boo.comments.CommentsData;
 import com.github.pengrad.uw_facebook_boo.comments.CommentsRecyclerAdapter;
-import com.github.pengrad.uw_facebook_boo.comments.DragDownLayout;
+import com.github.pengrad.uw_facebook_boo.ui.DragDownLayout;
 import com.github.pengrad.uw_facebook_boo.comments.FacebookCommentsRequest;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.EndlessRecyclerOnScrollListener;
 import com.google.gson.Gson;
