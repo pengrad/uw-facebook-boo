@@ -7,7 +7,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -17,8 +16,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.github.pengrad.uw_facebook_boo.comments.CommentsData;
 import com.github.pengrad.uw_facebook_boo.comments.CommentsRecyclerAdapter;
-import com.github.pengrad.uw_facebook_boo.ui.DragDownLayout;
 import com.github.pengrad.uw_facebook_boo.comments.FacebookCommentsRequest;
+import com.github.pengrad.uw_facebook_boo.ui.DragDownLayout;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.EndlessRecyclerOnScrollListener;
 import com.google.gson.Gson;
 
@@ -59,7 +58,7 @@ public class CommentsActivity extends AppCompatActivity implements DragDownLayou
         String postId = getIntent().getStringExtra(POST_ID);
         FacebookCommentsRequest.createRequest(postId, this).executeAsync();
 
-        Log.d(TAG, "onCreate() postId: " + postId);
+        log(TAG, "onCreate() postId: " + postId);
     }
 
     private void initView() {
