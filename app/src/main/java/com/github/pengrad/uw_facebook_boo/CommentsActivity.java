@@ -1,6 +1,6 @@
 package com.github.pengrad.uw_facebook_boo;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
@@ -33,10 +33,11 @@ public class CommentsActivity extends AppCompatActivity implements DragDownLayou
     private static final String TAG = "CommentsActivity";
     private static final String POST_ID = "postid";
 
-    public static void start(Context context, String postId) {
+    public static void start(Activity context, String postId) {
         Intent intent = new Intent(context, CommentsActivity.class);
         intent.putExtra(POST_ID, postId);
         context.startActivity(intent);
+        context.overridePendingTransition(R.anim.slide_up, 0);
     }
 
     @Bind(R.id.dragLayout) DragDownLayout mDragDownLayout;

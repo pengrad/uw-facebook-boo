@@ -16,4 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 
+    <TextView
+        android:id="@+id/text_message"
+        style="@style/TitleTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:text="Message"
+        android:textColor="@color/white"/>
+
 </FrameLayout>

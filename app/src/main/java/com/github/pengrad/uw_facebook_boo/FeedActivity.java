@@ -83,7 +83,7 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
 
         mFeedAdapter = new FeedRecyclerAdapter(this, new ItemClickListener<FeedData.Post>() {
             public void onItemClick(FeedData.Post item) {
-                startActivity(new Intent(FeedActivity.this, ImageActivity.class));
+                ImageActivity.start(FeedActivity.this, item);
             }
         });
 
@@ -125,9 +125,7 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
     @Override
     public void onItemClick(FeedData.Post item) {
         mZoomAnimation.enable();
-
         CommentsActivity.start(this, item.id);
-        overridePendingTransition(R.anim.slide_up, 0);
     }
 
     @Override
