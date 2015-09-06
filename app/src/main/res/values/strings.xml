@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">uw-facebook-boo</string>
+    <string name="app_name">Boo</string>
     <string name="facebook_app_id">397717237100453</string>
 
     <string name="action_logout">Log Out</string>
-    <string name="title_activity_second">Boo</string>
     <string name="button_connect">Connect</string>
     <string name="post_likes">%1$s likes</string>
     <string name="post_comments">%1$s comments</string>
+    <string name="action_settings">Settings</string>
 </resources>

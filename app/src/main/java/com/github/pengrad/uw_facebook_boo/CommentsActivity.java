@@ -49,7 +49,7 @@ public class CommentsActivity extends AppCompatActivity implements DragDownLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_story);
+        setContentView(R.layout.activity_comments);
 
         ButterKnife.bind(this);
 

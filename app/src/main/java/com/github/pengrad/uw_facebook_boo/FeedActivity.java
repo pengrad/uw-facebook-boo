@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
@@ -84,7 +83,7 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
 
         mFeedAdapter = new FeedRecyclerAdapter(this, new ItemClickListener<FeedData.Post>() {
             public void onItemClick(FeedData.Post item) {
-                Toast.makeText(FeedActivity.this, "image", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(FeedActivity.this, ImageActivity.class));
             }
         });
 
