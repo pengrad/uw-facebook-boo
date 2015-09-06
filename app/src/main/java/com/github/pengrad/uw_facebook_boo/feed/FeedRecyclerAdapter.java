@@ -39,6 +39,7 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
         @Bind(R.id.text_title) TextView mTextTitle;
         @Bind(R.id.text_likes) TextView mTextLikes;
         @Bind(R.id.text_comments) TextView mTextComments;
+        @Bind(R.id.text_time) TextView mTextTime;
 
         @BindString(R.string.post_likes) String likesText;
         @BindString(R.string.post_comments) String commentsText;
@@ -56,6 +57,7 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
             mTextLikes.setText(String.format(likesText, likes));
             mTextComments.setText(String.format(commentsText, comments));
             mTextTitle.setText(TextUtils.formatHashtags(item.message));
+            mTextTime.setText(TextUtils.formatTime(item.created_time));
 
             // picasso will cache image on disk
             Picasso.with(itemView.getContext()).load(item.full_picture).into(mImageView);

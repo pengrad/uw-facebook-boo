@@ -16,6 +16,7 @@ public class FeedData {
         public String id;
         public String message;
         public String full_picture;
+        public long created_time;
         private JsonObject comments;
         private JsonObject likes;
 

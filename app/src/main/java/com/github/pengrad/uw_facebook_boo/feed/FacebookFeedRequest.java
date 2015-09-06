@@ -15,7 +15,8 @@ public class FacebookFeedRequest {
         AccessToken token = AccessToken.getCurrentAccessToken();
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "message,full_picture,likes.limit(0).summary(true),comments.limit(0).summary(true)");
+        parameters.putString("fields", "message,created_time,full_picture,likes.limit(0).summary(true),comments.limit(0).summary(true)");
+        parameters.putString("date_format", "U");
 
         GraphRequest request = GraphRequest.newGraphPathRequest(token, "/Boo/feed", callback);
         request.setParameters(parameters);
