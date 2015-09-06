@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
 import com.facebook.GraphRequest;
@@ -81,7 +82,11 @@ public class FeedActivity extends AppCompatActivity implements GraphRequest.Call
         StyleMaker.swipeRefreshLayout(mSwipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mFeedAdapter = new FeedRecyclerAdapter(this);
+        mFeedAdapter = new FeedRecyclerAdapter(this, new ItemClickListener<FeedData.Post>() {
+            public void onItemClick(FeedData.Post item) {
+                Toast.makeText(FeedActivity.this, "image", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);

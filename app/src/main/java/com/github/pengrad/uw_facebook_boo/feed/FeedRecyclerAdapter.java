@@ -23,14 +23,18 @@ import butterknife.ButterKnife;
  */
 public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> {
 
-    public FeedRecyclerAdapter(ItemClickListener<FeedData.Post> itemClickListener) {
+    private ItemClickListener<FeedData.Post> mImageClickListener;
+
+    public FeedRecyclerAdapter(ItemClickListener<FeedData.Post> itemClickListener,
+                               ItemClickListener<FeedData.Post> imageClickListener) {
         super(itemClickListener);
+        this.mImageClickListener = imageClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_feed_post, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mImageClickListener);
     }
 
     public static class ViewHolder extends RecyclerViewHolder<FeedData.Post> {
@@ -44,13 +48,16 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
         @BindString(R.string.post_likes) String likesText;
         @BindString(R.string.post_comments) String commentsText;
 
-        public ViewHolder(View itemView) {
+        private ItemClickListener<FeedData.Post> mImageClickListener;
+
+        public ViewHolder(View itemView, ItemClickListener<FeedData.Post> imageClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.mImageClickListener = imageClickListener;
         }
 
         @Override
-        public void onBindItem(FeedData.Post item) {
+        public void onBindItem(final FeedData.Post item) {
             String likes = TextUtils.formatNumber(item.getLikesCount());
             String comments = TextUtils.formatNumber(item.getCommentsCount());
 
@@ -61,6 +68,14 @@ public class FeedRecyclerAdapter extends RecyclerViewListAdapter<FeedData.Post> 
 
             // picasso will cache image on disk
             Picasso.with(itemView.getContext()).load(item.full_picture).into(mImageView);
+
+            if (mImageClickListener != null) {
+                mImageView.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        mImageClickListener.onItemClick(item);
+                    }
+                });
+            }
         }
     }
 }
