@@ -15,7 +15,7 @@ public class CommentsData {
     public static class Comment {
         public String id;
         public String message;
-        public String created_time;
+        public long created_time;
 
         private JsonObject from;
 

@@ -1,5 +1,6 @@
 package com.github.pengrad.uw_facebook_boo.comments;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.pengrad.uw_facebook_boo.R;
+import com.github.pengrad.uw_facebook_boo.utils.TextUtils;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.ItemClickListener;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewHolder;
 import com.github.pengrad.uw_facebook_boo.utils.recyclerview.RecyclerViewListAdapter;
@@ -44,12 +46,14 @@ public class CommentsRecyclerAdapter extends RecyclerViewListAdapter<CommentsDat
 
         @Override
         public void onBindItem(CommentsData.Comment item) {
+            Context ctx = itemView.getContext();
+
             mTextMessage.setText(item.message);
             mTextUser.setText(item.getUserName());
-            mTextTime.setText(item.created_time);
+            mTextTime.setText(TextUtils.formatTime(item.created_time));
 
             // picasso will cache image on disk
-            Picasso.with(itemView.getContext()).load(item.getUserPicture()).into(mImageUser);
+            Picasso.with(ctx).load(item.getUserPicture()).into(mImageUser);
         }
     }
 }

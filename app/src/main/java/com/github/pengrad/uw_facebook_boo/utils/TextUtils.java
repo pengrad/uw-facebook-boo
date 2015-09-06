@@ -6,7 +6,10 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.CharacterStyle;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -20,8 +23,12 @@ public class TextUtils {
         return NumberFormat.getNumberInstance(Locale.US).format(number);
     }
 
+    public static String formatTime(long time) {
+        return SimpleDateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(new Date(time * 1000));
+    }
+
     public static SpannableString formatHashtags(String src) {
-        if(android.text.TextUtils.isEmpty(src)) {
+        if (android.text.TextUtils.isEmpty(src)) {
             return new SpannableString("");
         }
 

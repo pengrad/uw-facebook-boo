@@ -17,6 +17,7 @@ public class FacebookCommentsRequest {
         Bundle parameters = new Bundle();
         parameters.putString("fields", "message,created_time,from{name,picture.height(200).width(200)}");
         parameters.putString("limit", "20");
+        parameters.putString("date_format", "U");
 
         GraphRequest request = GraphRequest.newGraphPathRequest(token, "/" + postId + "/comments", callback);
         request.setParameters(parameters);
