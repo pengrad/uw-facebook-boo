@@ -1,0 +1,4 @@
+<resources>
+    <!-- Feed screen margins for landscape huge tablets. Nexus 10-->
+    <dimen name="feed_horizontal_margin">340dp</dimen>
+</resources>

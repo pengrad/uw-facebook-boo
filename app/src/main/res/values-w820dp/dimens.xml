@@ -1,3 +1,4 @@
 <resources>
-    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <!-- Feed screen margins for landscape tablets Nexus 7, 9-->
+    <dimen name="feed_horizontal_margin">256dp</dimen>
 </resources>
